@@ -27,18 +27,9 @@ class ResultsView(generic.DetailView):
 
 class DeleteView(generic.DeleteView):
   model = Question
-  template_name = 'polls/delete.html'
-  context_object_name = 'total_votes'
+  template_name = 'polls/delete.html'  
   success_url = reverse_lazy('polls:index')
 
-  def get_total_votes(self):
-    total_votes = 0
-    for choice in Question.choice_set.all:
-      total_votes += choice.votes
-      print(total_votes)
-    return "TEsTING"
-
-  total_votes = get_total_votes
 
 def add_question(request):
   if request.method == 'POST':

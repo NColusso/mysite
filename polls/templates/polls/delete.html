@@ -3,12 +3,22 @@
 
 <form method="post">
   {% csrf_token %}
-  <h1>Are you sure you want to delete this question?</h1>
+  <h2>Are you sure you want to delete the question '{{ question.question_text }}'?</h2>
   <p>
-    Along with deleting the question, you will be deleting the votes as well
+    Along with deleting the question, you will also be deleting:
+    <ul>
+    
+     {% for choice in question.choice_set.all %}
+
+    <li>{{ choice.votes }} vote{{choice.votes|pluralize}} for '{{ choice.choice_text }}'</li>
+    
+
+  {% endfor %} 
+  </ul>
   </p>
   <input type="submit" value="Yes" />
   <a href="{% url 'polls:index' %}">Cancel</a>
 </form>
+
 
 {% endblock %}
